@@ -27,7 +27,8 @@ view: case_one_orders {
   dimension: customer_lifetime_orders {
     description: "Total number of orders for each user bucketed"
     type: tier
-    tiers: [1,2,3,5,6,9,10]
+    tiers: [1,2,3,6,10]
+    style: integer
     sql:${TABLE}.lifetime_orders ;;
   }
 
@@ -85,8 +86,22 @@ view: case_one_orders {
   dimension: lifetime_revenue{
     description: "total revenue per user"
     type: number
+    value_format: "$0"
     sql: ${TABLE}.lifetime_orders;;
   }
 
+  dimension: customer_lifetime_revenue{
+    description: "total revenue per user bucketed"
+    type: tier
+    tiers: [0,5,20,50,100,500,1000]
+    value_format: "$0"
+    sql: ${TABLE}.lifetime_orders;;
+  }
+
+  measure: number_of_customers{
+    description: "number of customers"
+    type: count_distinct
+    sql: ${TABLE}.user_id;;
+  }
 
  }
