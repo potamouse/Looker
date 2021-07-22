@@ -46,6 +46,25 @@ view: case_one_orders {
     sql: ${TABLE}.first_order ;;
   }
 
+  dimension_group: since_signup {
+    type: duration
+    intervals: [day, month, year]
+    sql_start: ${first_order_date} ;;
+    sql_end: CURRENT_DATE();;
+  }
+
+  measure: average_days_since_signup {
+    description: "The average number of days since customers have placed their first order on the website"
+    type: average
+    sql: ${days_since_signup} ;;
+  }
+
+  measure: average_months_since_signup {
+    description: "The average number of months since customers have placed their first order on the website"
+    type: average
+    sql: ${months_since_signup} ;;
+  }
+
   dimension_group: since_last_order {
     type: duration
     intervals: [day, month, year]
@@ -87,7 +106,14 @@ view: case_one_orders {
     description: "total revenue per user"
     type: number
     value_format: "$0"
-    sql: ${TABLE}.lifetime_orders;;
+    sql: ${TABLE}.lifetime_revenue;;
+  }
+
+  measure: average_lifetime_revenue{
+    description:"average revenue per user"
+    type: average
+    value_format: "$0"
+    sql: ${TABLE}.lifetime_revenue;;
   }
 
   dimension: customer_lifetime_revenue{
