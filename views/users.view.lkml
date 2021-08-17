@@ -39,6 +39,26 @@ view: users {
     sql: ${TABLE}."CREATED_AT" ;;
   }
 
+  dimension: days_since_signup {
+    type: number
+    sql: DATEDIFF( day, ${created_date}, CURRENT_DATE()) ;;
+  }
+
+  dimension: months_since_signup {
+    type: number
+    sql: DATEDIFF( month, ${created_date}, CURRENT_DATE()) ;;
+  }
+
+  measure: av_days_since_signup {
+    type: average
+    sql: ${days_since_signup} ;;
+  }
+
+  measure: av_months_since_signup {
+    type: average
+    sql: ${months_since_signup};;
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}."EMAIL" ;;

@@ -121,7 +121,7 @@ view: case_one_orders {
     type: tier
     tiers: [0,5,20,50,100,500,1000]
     value_format: "$0"
-    sql: ${TABLE}.lifetime_orders;;
+    sql: ${TABLE}.lifetime_revenue;;
   }
 
   measure: number_of_customers{

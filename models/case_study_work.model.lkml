@@ -10,7 +10,13 @@ datagroup: case_study_work_default_datagroup {
 
 persist_with: case_study_work_default_datagroup
 
-explore: case_one_orders {}
+explore: case_one_orders {
+  join: users {
+    type: left_outer
+    sql_on: ${case_one_orders.user_id} = ${users.id} ;;
+    relationship: one_to_one
+  }
+}
 
 explore: distribution_centers {}
 
